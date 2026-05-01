@@ -42,3 +42,29 @@ This project is a Flask-based API that categorizes risk-related text using an AI
 ### How To Run
 python app.py
 
+
+
+## AI Service (Your Work)
+
+### Features
+- Input validation & sanitization
+- Risk categorization (mock AI)
+- Rate limiting
+- Secure API design
+
+### Tech Stack
+- Python
+- Flask
+- Pytest
+
+### Endpoints
+POST /categorise
+
+### Testing
+- 9 test cases
+- 89% coverage
+
+### How to Run
+cd ai-service
+python app.py
+

@@ -66,6 +66,134 @@ This document outlines security threats specific to the Risk Culture Survey Tool
 
 ---
 
+## PII Audit
+
+- No personal identifiable information (PII) is stored in the system.
+- User input is processed temporarily and not persisted.
+- Logs do not contain sensitive or personal data.
+- Prompts are generic and do not include real user data.
+
+Status: Verified ✔
+
+## Week 2 Security Sign-off
+
+### Implemented Security Measures
+
+- Rate limiting enforced using Flask-Limiter (30 requests per minute)
+- Input validation and sanitization implemented
+- Prompt injection and malicious input detection enabled
+
+### JWT Authentication
+
+- JWT-based authentication is not implemented in the current scope
+- Identified as a future enhancement for securing endpoints
+
+### Status
+
+- Rate limiting: Verified ✔
+- Injection protection: Verified ✔
+- JWT enforcement: Not implemented (documented)
+
+Overall Status: Partially Complete ✔
+
 ## Conclusion
 
 Security is enforced through input validation, rate limiting, secure API handling, and continuous monitoring.
+
+
+
+## OWASP ZAP Security Scan
+
+- Full active scan performed using OWASP ZAP
+- No critical or high vulnerabilities found
+
+### Medium Findings
+
+1. Content Security Policy (CSP) Header Not Set  
+   - Planned improvement for future security enhancement
+
+2. Server Header Information Disclosure  
+   - Low risk in development environment
+
+3. X-Content-Type-Options Header Missing  
+   - Can be added in production configuration
+
+### Security Measures Implemented
+
+- Input validation and sanitization
+- Prompt injection detection
+- Rate limiting using Flask-Limiter
+
+Status: Completed ✔
+
+
+## Day 12 Security Improvements
+
+- Implemented Flask-Talisman to enforce security headers
+- CSP, X-Content-Type-Options and other headers added
+- Re-ran OWASP ZAP scan
+
+### Results
+
+- No critical or high vulnerabilities found
+- CSP header now present (minor directive warning remains)
+- Server header disclosure observed (acceptable in development)
+- Informational findings from fuzzing tools
+
+Status: Completed ✔
+
+
+## Day 13 Full Stack Security Test
+
+### Authentication
+- JWT-based authentication not implemented in current scope
+- 401 and 403 responses not applicable
+
+### XSS Protection
+- Input sanitization prevents script injection
+- Malicious patterns are detected and rejected
+
+### Rate Limiting
+- Verified 429 response after exceeding request limit
+
+### Summary
+- Core security mechanisms validated
+- Authentication identified as future enhancement
+
+Status: Completed ✔
+
+
+
+
+
+## Executive Summary
+The AI service has been secured using input validation, rate limiting, and security headers. OWASP ZAP testing was conducted and no critical or high vulnerabilities remain.
+
+## Tests Conducted
+
+- Input validation testing (empty, invalid, malicious)
+- Prompt injection testing
+- OWASP ZAP active scan
+- Rate limiting verification (429)
+- Boundary testing (min/max input)
+- Fallback testing for AI failure
+
+## Findings Fixed
+
+- Added input sanitization middleware
+- Implemented rate limiting (30 req/min)
+- Added Flask-Talisman security headers
+- Prevented prompt injection patterns
+- Removed sensitive logging (PII audit)
+
+## Residual Risks
+
+- No authentication (JWT not implemented in AI service)
+- Server header leakage (development environment)
+- CSP policy can be further tightened
+
+## Team Sign-off
+
+All security measures have been implemented, tested, and verified.
+
+AI Developer 3 — Security Completed ✔

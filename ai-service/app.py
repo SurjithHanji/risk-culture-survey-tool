@@ -1,11 +1,16 @@
 from flask import Flask, request, jsonify
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_talisman import Talisman
 
 from services.input_sanitizer import validate_request
 from routes.categorise import categorise_bp
 
+# ✅ Create app ONLY ONCE
 app = Flask(__name__)
+
+# ✅ Apply security headers
+Talisman(app, force_https=False)
 
 # ✅ Rate limiter
 limiter = Limiter(
@@ -33,7 +38,7 @@ def check_input():
         if error:
             return error
 
-# ✅ Health check endpoint (important for later days)
+# ✅ Health check
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({
@@ -41,7 +46,7 @@ def health():
         "service": "AI Service"
     })
 
-# ✅ Home route
+# ✅ Home
 @app.route("/", methods=["GET"])
 def home():
     return jsonify({
